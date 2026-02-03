@@ -1,6 +1,6 @@
-
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CreatorStats
 {
@@ -20,7 +20,7 @@ public class Program
     public Dictionary<string, int> GetTopPostCounts(List<CreatorStats> records, double likeThreshold)
     {
         Dictionary<string, int> result = new Dictionary<string, int>();
-
+        //Implement COde Here
         foreach (var creator in records)
         {
             int count = 0;
@@ -44,7 +44,8 @@ public class Program
 
     public double CalculateAverageLikes()
     {
-        double totalLikes = 0;
+       //Implement Code Here
+          double totalLikes = 0;
         int totalWeeks = 0;
 
         foreach (var creator in CreatorStats.EngagementBoard)
@@ -60,75 +61,56 @@ public class Program
             return 0;
 
         return totalLikes / totalWeeks;
+       
     }
 
-    static void Main(string[] args)
+    public static void Main(string[] args)
+{
+    Program program = new Program();
+
+    // Hard-coded creator data
+    CreatorStats c1 = new CreatorStats
     {
-        Program obj = new Program();
-        bool running = true;
+        CreatorName = "Nicky",
+        WeeklyLikes = new double[] { 1500, 1600, 1800, 2000 }
+    };
 
-        while (running)
+    CreatorStats c2 = new CreatorStats
+    {
+        CreatorName = "Roma",
+        WeeklyLikes = new double[] { 800, 1000, 1300, 1400 }
+    };
+
+    program.RegisterCreator(c1);
+    program.RegisterCreator(c2);
+
+    Console.WriteLine("Creators registered successfully\n");
+
+    // Top posts
+    double threshold = 1400;
+    Console.WriteLine("Top Posts (Threshold: 1400)");
+
+    var topPosts = program.GetTopPostCounts(CreatorStats.EngagementBoard, threshold);
+
+    if (topPosts.Count == 0)
+    {
+        Console.WriteLine("No top-performing posts this week");
+    }
+    else
+    {
+        foreach (var item in topPosts)
         {
-            Console.WriteLine("1. Register Creator");
-            Console.WriteLine("2. Show Top Posts");
-            Console.WriteLine("3. Calculate Average Likes");
-            Console.WriteLine("4. Exit");
-            Console.WriteLine("Enter your choice:");
-
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    CreatorStats creator = new CreatorStats();
-
-                    Console.WriteLine("Enter Creator Name:");
-                    creator.CreatorName = Console.ReadLine();
-
-                    creator.WeeklyLikes = new double[4];
-                    Console.WriteLine("Enter weekly likes (Week 1 to 4):");
-                    for (int i = 0; i < 4; i++)
-                    {
-                        creator.WeeklyLikes[i] = Convert.ToDouble(Console.ReadLine());
-                    }
-
-                    obj.RegisterCreator(creator);
-                    Console.WriteLine("Creator registered successfully");
-                    Console.WriteLine();
-                    break;
-
-                case 2:
-                    Console.WriteLine("Enter like threshold:");
-                    double threshold = Convert.ToDouble(Console.ReadLine());
-
-                    Dictionary<string, int> topPosts =
-                        obj.GetTopPostCounts(CreatorStats.EngagementBoard, threshold);
-
-                    if (topPosts.Count == 0)
-                    {
-                        Console.WriteLine("No top-performing posts this week");
-                    }
-                    else
-                    {
-                        foreach (var item in topPosts)
-                        {
-                            Console.WriteLine(item.Key + " - " + item.Value);
-                        }
-                    }
-                    Console.WriteLine();
-                    break;
-
-                case 3:
-                    double average = obj.CalculateAverageLikes();
-                    Console.WriteLine("Overall average weekly likes: " + average);
-                    Console.WriteLine();
-                    break;
-
-                case 4:
-                    Console.WriteLine("Logging off - Keep Creating with StreamBuzz!");
-                    running = false;
-                    break;
-            }
+            Console.WriteLine($"{item.Key} - {item.Value}");
         }
     }
+
+    Console.WriteLine();
+
+    // Average likes
+    double avg = program.CalculateAverageLikes();
+    Console.WriteLine($"Overall average weekly likes: {avg}");
+
+    Console.WriteLine();
+    Console.WriteLine("Logging off - Keep Creating with StreamBuzz!");
+}
 }
