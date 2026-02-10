@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
+
 class ExtensionMethod
 {
     public static void Main(string[] args)
     {
-        string[] str = { "1:Meehir", "2:Shivam", "3:Tuna", "4:Alex" };
+        string[] str = { "1:Meehir", "2:Shivam", "1:Tuna", "4:Alex" };
 
         string[] result = GetDistinctNames(str);
     }
