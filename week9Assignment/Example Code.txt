@@ -1,0 +1,416 @@
+https://www.entityframeworktutorial.net/efcore/delete-data-in-entity-framework-core.aspx
+
+
+Select <CurrentEFCoreProject> in Default Project DropDown in Package Manager Console
+
+Creating a Model for an Existing Database in Entity Framework Core
+------------------------------------------------------------------
+Install-package Microsoft.EntityFrameworkCore.Design
+install-package Microsoft.EntityFrameworkCore.SqlServer
+Install-package Microsoft.EntityFrameworkCore
+Install-package Microsoft.EntityFrameworkCore.Relational
+Install-package Microsoft.EntityFrameworkCore.Tools 
+
+
+Scaffold-DbContext "Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=pubs;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+
+
+
+
+====================================================================================
+Install the Following Package
+-----------------------------
+install-package Microsoft.EntityFrameworkCore
+install-package Microsoft.EntityFrameworkCore.SqlServer
+Install-package Microsoft.EntityFrameworkCore.Relational
+Install-package Microsoft.EntityFrameworkCore.Tools -Version 6.0.3
+
+
+Create a Model Folder and Create the Following Classes
+------------------------------------------------------
+public class Student
+    {
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public int BranchId { get; set; } = 0;
+    }
+
+public class Branch
+    {
+        public int Id { get; set; } 
+        public string? Name { get; set; }
+    }
+
+public class Address
+    {
+        public int Id { get; set; } = 0;
+        public int StudentId { get; set; } = 0;
+        public string City { get; set; }= string.Empty;
+        public string State { get; set; } = string.Empty;
+        public string Country { get; set; } = string.Empty;
+        public string Pin { get; set; } = string.Empty;
+    }
+
+public class Course
+    {
+        public int CourseId { get; set; } = 0;
+        public string? CourseName { get; set; }
+    }
+================================================================
+using Microsoft.EntityFrameworkCore;
+namespace EntityFrameworkCore.Models
+{
+    public class SchoolContext : DbContext
+    {
+        public DbSet<Student>? Students { get; set; }
+        public DbSet<Address>? Addreses { get; set; }
+        public DbSet<Branch>? Branches { get; set; }
+        public DbSet<Course>? Courses { get; set; }
+
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=(LocalDb)\MSSQLLocalDB;Database=SchoolDB;Integrated Security=True");
+        }
+    }
+}
+
+
+add-migration CreateSchoolDB
+update-database –verbose
+
+
+
+========================================================================
+using EntityFrameworkCore.Models;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        using (var context = new SchoolContext())
+        {
+
+            var std = new Student()
+            {
+                Name = "Bill",
+                BranchId = 001,
+                Email = "ravi.kothakonda@gmail.com"
+               
+            };
+
+            context.Students.Add(std);
+            context.SaveChanges();
+            Console.WriteLine("Name Add");
+        }
+    }
+}
+
+Check the Record has been Inserted in the database
+
+============================================================
+Querying in Entity Framework Core
+--------------------------------
+static void Main(string[] args)
+    {
+            var context = new SchoolContext();
+        var studentsWithSameName = context.Students
+                                          .Where(s => s.Name == GetName())
+                                          .ToList();
+        foreach (var item in studentsWithSameName)
+        {
+            Console.WriteLine(item.Id);
+            Console.WriteLine(item.Name);
+            Console.WriteLine(item.Email);
+            Console.WriteLine(item.BranchId);
+        }
+        
+    }
+public static string GetName() {
+    return "Bill";
+}
+================================================================================
+
+
+
+
+
+Entity Framework Core: Saving Data in Connected Scenario
+--------------------------------------------------------
+using (var context = new SchoolContext())
+{
+    var std = new Student()
+    {
+        FirstName = "Bill",
+        LastName = "Gates"
+    };
+    context.Students.Add(std);
+
+    // or
+    // context.Add<Student>(std);
+
+    context.SaveChanges();
+}
+
+==================================================================
+Updating Data
+-------------
+var std = context.Students.First<Student>();
+            std.Name = "kravi";
+            std.Email = "kravik2007@gmail.com";
+            std.BranchId = 105;
+            context.SaveChanges();
+            Console.WriteLine("Record Update Successfully");
+
+Deleting Data
+-------------
+using (var context = new SchoolContext())
+{
+    var std = context.Students.First<Student>();
+    context.Students.Remove(std);
+
+    // or
+    // context.Remove<Student>(std);
+
+    context.SaveChanges();
+ Console.WriteLine("Record Deleted Successfully");
+}
+
+================================================================================
+Insert Data in Disconnected Scenario in Entity Framework Core
+--------------------------------------------------------------
+
+The following example demonstrates inserting a new record into the database using the above steps:
+
+//Disconnected entity
+var std = new Student(){ Name = "Bill" };
+
+using (var context = new SchoolContext())
+{
+    //1. Attach an entity to context with Added EntityState
+    context.Add<Student>(std);
+    
+    //or the followings are also valid
+    // context.Students.Add(std);
+    // context.Entry<Student>(std).State = EntityState.Added;
+    // context.Attach<Student>(std);
+                  
+    //2. Calling SaveChanges to insert a new record into Students table
+    context.SaveChanges();
+}
+
+==================================================================================
+Insert Relational Data
+----------------------
+var stdAddress = new StudentAddress()
+{
+    City = "SFO",
+    State = "CA",
+    Country = "USA"
+};
+
+var std = new Student()
+{
+    Name = "Steve",
+    Address = stdAddress
+};
+using (var context = new SchoolContext())
+{
+    // Attach an entity to DbContext with Added state
+    context.Add<Student>(std);
+
+    // Calling SaveChanges to insert a new record into Students table
+    context.SaveChanges();
+}
+
+=======================================================================
+Insert Multiple Records
+-----------------------
+var studentList = new List<Student>() {
+    new Student(){ Name = "Bill" },
+    new Student(){ Name = "Steve" }
+};
+
+using (var context = new SchoolContext())
+{
+    context.AddRange(studentList);
+    context.SaveChanges();
+}
+============================================================================
+You can also add a list of different types of entities, as shown below.
+
+var std1 = new Student(){ Name = "Bill" };
+
+var std2 = new Student(){ Name = "Steve" };
+
+var computer = new Course() { CourseName = "Computer Science" };
+
+var entityList = new List<Object>() {
+    std1,
+    std2,
+    computer
+};
+
+using (var context = new SchoolContext())
+{                
+    context.AddRange(entityList);
+
+    // or 
+    // context.AddRange(std1, std2, computer);
+
+    context.SaveChanges();
+}
+
+=============================================================================
+Insert Data Using DbSet
+-----------------------
+WE  can use DbSet to save an instance of an entity which will be translated into INSERT/UPDATE/DELETE command in the database, in the same way as EF 6.x.
+
+Use the DbSet<TEntity>.Add() method to attach an entity with Added state or the DbSet<TEntity>.AddRange() method 
+to attach a collection of entities with Added state, as shown below.
+
+var std = new Student()
+{
+    Name = "Bill"
+};
+
+using (var context = new SchoolContext())
+{
+    context.Students.Add(std);
+
+    // or
+    // context.Students.Attach(std);
+
+    context.SaveChanges();
+}
+
+=====================================================================================
+Update Data in Disconnected Scenario in Entity Framework Core
+-------------------------------------------------------------
+The following example demonstrates updating a disconnected entity.
+
+// Disconnected Student entity
+var stud = new Student(){ StudentId = 1, Name = "Bill" };
+
+stud.Name = "Steve"; 
+
+using (var context = new SchoolContext())
+{
+    context.Update<Student>(stud);
+
+    // or the followings are also valid
+    // context.Students.Update(stud);
+    // context.Attach<Student>(stud).State = EntityState.Modified;
+    // context.Entry<Student>(stud).State = EntityState.Modified; 
+
+    context.SaveChanges(); 
+}
+
+===================================================================================
+Update Multiple Entities
+------------------------
+var modifiedStudent1 = new Student()
+{
+    StudentId = 1,
+    Name = "Bill"
+};
+
+var modifiedStudent2 = new Student()
+{
+    StudentId = 3,
+    Name = "Steve"
+};
+
+var modifiedStudent3 = new Student()
+{
+    StudentId = 3,
+    Name = "James"
+};
+
+IList<Student> modifiedStudents = new List<Student>()
+{
+    modifiedStudent1,
+    modifiedStudent2,
+    modifiedStudent3
+};
+
+using (var context = new SchoolContext())
+{
+    context.UpdateRange(modifiedStudents);
+    
+    // or the followings are also valid
+    //context.UpdateRange(modifiedStudent1, modifiedStudent2, modifiedStudent3);
+    //context.Students.UpdateRange(modifiedStudents);
+    //context.Students.UpdateRange(modifiedStudent1, modifiedStudent2, modifiedStudent3);
+                
+    context.SaveChanges();
+}
+
+
+====================================================================================
+Delete Data in Disconnected Scenario in Entity Framework Core
+==============================================================
+The following example demonstrates the different ways of deleting an entity in the disconnected scenario.
+
+// entity to be deleted
+var student = new Student() {
+        StudentId = 1
+};
+
+using (var context = new SchoolContext()) 
+{
+    context.Remove<Student>(student);
+   
+    // or the followings are also valid
+    // context.RemoveRange(student);
+    //context.Students.Remove(student);
+    //context.Students.RemoveRange(student);
+    //context.Attach<Student>(student).State = EntityState.Deleted;
+    //context.Entry<Student>(student).State = EntityState.Deleted;
+    
+    context.SaveChanges();
+}
+
+=====================================================================
+Delete Multiple Records
+-----------------------
+You can remove multiple entities in one go by using the DbContext.RemoveRange() or DbSet.RemoveRange() method.
+
+IList<Student> students = new List<Student>() {
+    new Student(){ StudentId = 1 },
+    new Student(){ StudentId = 2 },
+    new Student(){ StudentId = 3 },
+    new Student(){ StudentId = 4 }
+};
+
+using (var context = new SchoolContext()) 
+{
+    context.RemoveRange(students);
+    
+    // or
+    // context.Students.RemoveRange(students);
+    
+    context.SaveChanges();
+}
+
+Delete Related Data
+-------------------
+For example, you can configure a cascade delete option for the relationship, as shown below.
+
+modelBuilder.Entity<Student>()
+    .HasOne<Grade>(s => s.Grade)
+    .WithMany(g => g.Students)
+    .HasForeignKey(s => s.GradeId)
+    .OnDelete(DeleteBehavior.Cascade);
+
+
+
+
+
+
+
+

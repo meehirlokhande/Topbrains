@@ -1,0 +1,15 @@
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.GeneratedMSBuildEditorConfig.editorconfig
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.AssemblyInfoInputs.cache
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.AssemblyInfo.cs
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.csproj.CoreCompileInputs.cache
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.sourcelink.json
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\bin\Debug\net10.0\Scenerio1Ecommerce.exe
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\bin\Debug\net10.0\Scenerio1Ecommerce.deps.json
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\bin\Debug\net10.0\Scenerio1Ecommerce.runtimeconfig.json
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\bin\Debug\net10.0\Scenerio1Ecommerce.dll
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\bin\Debug\net10.0\Scenerio1Ecommerce.pdb
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.dll
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\refint\Scenerio1Ecommerce.dll
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.pdb
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\Scenerio1Ecommerce.genruntimeconfig.cache
+D:\Capgemini Training\Topbrains_practice\week9Assignment\Scenerio1Ecommerce\obj\Debug\net10.0\ref\Scenerio1Ecommerce.dll
