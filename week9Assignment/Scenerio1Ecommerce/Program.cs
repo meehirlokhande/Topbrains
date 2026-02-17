@@ -278,7 +278,12 @@ public class ProductRepository<T> where T : class, IProduct
     public IEnumerable<T> FindProducts(Func<T, bool> predicate)
     {
         // Should return filtered products
-        
+        foreach(var p in _products){
+            if(predicate(p)){
+                return p;
+            }
+        }
+        return null;
 
     }
     
@@ -286,6 +291,12 @@ public class ProductRepository<T> where T : class, IProduct
     public decimal CalculateTotalValue()
     {
         // Return sum of all product prices
+        decimal total = 0;
+        foreach(var p in _products){
+            total += p.Price;
+        }
+        return total;
+
     }
 }
 
@@ -309,13 +320,25 @@ public class DiscountedProduct<T> where T : IProduct
     public DiscountedProduct(T product, decimal discountPercentage)
     {
         // TODO: Initialize with validation
+        if(product == null){
+            throw new ArgumentNullException("Product cannot be null");
+        }
+        if(discountPercentage < 0 || discountPercentage > 100){
+            throw new ArgumentException("Discount percenttage must be between 0 and 100");
+        }
         // Discount must be between 0 and 100
+        _product = product;
     }
     
     // TODO: Implement calculated price with discount
     public decimal DiscountedPrice => _product.Price * (1 - _discountPercentage / 100);
+    _discountPercentage = discountPercentage;
+
     
     // TODO: Override ToString to show discount details
+    public override string ToString(){
+        return $"{_product.Name} - Original: {_product.Price}, Discount: {_discountPercentage}%, Final: {DiscountedPrice}";
+    }
 }
 
 // 4. Inventory manager with constraints
