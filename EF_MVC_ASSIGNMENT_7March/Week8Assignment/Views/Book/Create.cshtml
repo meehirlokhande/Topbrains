@@ -1,0 +1,27 @@
+@model Book
+@{
+    ViewData["Title"] = "Add Book";
+}
+
+<h1>Add Book</h1>
+<form asp-action="Create" method="post" asp-antiforgery="false">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author" class="form-label">Author</label>
+        <input asp-for="Author" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label">Price</label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a asp-action="List" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,38 @@
+@model IReadOnlyList<Book>
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>Books</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Book</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.BookId</td>
+                <td><a asp-action="Details" asp-route-id="@book.BookId">@book.Title</a></td>
+                <td>@book.Author</td>
+                <td>@book.Price.ToString("C")</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No books. <a asp-action="Create">Add one</a>.</p>
+}

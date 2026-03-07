@@ -1,0 +1,64 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+
+# NuGet packages
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# .NET Core
+project.json
+*.nuget.props
+*.nuget.targets
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Entity Framework Migrations (uncomment if needed)
+# **/Migrations/
+
+# dotnet tool
+.config/
