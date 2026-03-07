@@ -24,10 +24,35 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
-# .NET Core
+# .NET Core / ASP.NET
 project.json
 *.nuget.props
 *.nuget.targets
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# ASP.NET publish profiles
+*.pubxml
+*.publishproj
+
+# ASP.NET MVC bundling & minification
+bundles/
+
+# Entity Framework Migrations (uncomment if you want to ignore)
+# **/Migrations/
+
+# Entity Framework local DB files
+*.mdf
+*.ldf
+*.ndf
+
+# ASP.NET secret files
+secrets.json
+appsettings.Development.json
+
+# wwwroot lib folder (if using LibMan/npm)
+wwwroot/lib/
 
 # User-specific files
 *.rsuser
@@ -52,13 +77,18 @@ $RECYCLE.BIN/
 # Logs
 *.log
 
-# SQL Server files
-*.mdf
-*.ldf
-*.ndf
-
-# Entity Framework Migrations (uncomment if needed)
-# **/Migrations/
-
 # dotnet tool
 .config/
+
+# Publish output
+publish/
+
+# Temporary ASP.NET files
+**/App_Data/*.mdf
+**/App_Data/*.ldf
+
+# StyleCop
+StyleCopReport.xml
+
+# Caches
+*.cache
