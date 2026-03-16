@@ -1,0 +1,11 @@
+﻿@model Assignment_14March.Models.Course
+@{
+    ViewData["Title"] = "Delete Course";
+}
+<p>Delete course <strong>@Model.CourseName</strong>?</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="CourseId" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>     

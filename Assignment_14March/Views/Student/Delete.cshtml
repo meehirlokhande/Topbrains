@@ -1,0 +1,11 @@
+﻿@model Assignment_14March.Models.Student
+@{
+    ViewData["Title"] = "Delete Student";
+}
+<p>Delete student <strong>@Model.StudentName</strong>?</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="StudentId" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>

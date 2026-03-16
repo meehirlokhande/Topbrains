@@ -1,0 +1,12 @@
+﻿@model Assignment_14March.Models.Course
+@{
+    ViewData["Title"] = "My Course";
+}
+<h2>Course Details</h2>
+<table class="table table-bordered">
+    <tr><th>Course Name</th><td>@Model.CourseName</td></tr>
+    <tr><th>Duration</th><td>@Model.Duration</td></tr>
+    <tr><th>Fees</th><td>@Model.Fees</td></tr>
+    <tr><th>Department</th><td>@Model.Department?.DepartmentName</td></tr>
+</table>
+<a asp-action="Index">Back to Dashboard</a>

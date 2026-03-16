@@ -1,0 +1,21 @@
+﻿@model Assignment_14March.Models.Student?
+@{
+    ViewData["Title"] = "Student Dashboard";
+}
+<h2>Student Dashboard</h2>
+@if (TempData["Message"] != null)
+{
+    <p class="text-warning">@TempData["Message"]</p>
+}
+@if (Model != null)
+{
+    <ul>
+        <li><a asp-action="Profile">View Profile</a></li>
+        <li><a asp-action="UpdateProfile">Update Profile</a></li>
+        <li><a asp-action="Course">View Course</a></li>
+    </ul>
+}
+else
+{
+    <p>No student record linked. Contact admin.</p>
+}

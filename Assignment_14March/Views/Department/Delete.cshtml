@@ -1,0 +1,11 @@
+﻿@model Assignment_14March.Models.Department
+@{
+    ViewData["Title"] = "Delete Department";
+}
+<p>Delete department <strong>@Model.DepartmentName</strong>?</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="DepartmentId" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>

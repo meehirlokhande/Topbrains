@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Assignment_14March.Models.Student>
+@{
+    ViewData["Title"] = "Students";
+}
+@if (TempData["Success"] != null)
+{
+    <p class="text-success">@TempData["Success"]</p>
+}
+<p><a asp-action="Create">Add Student</a></p>
+<table class="table table-bordered">
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Department</th><th>Course</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.StudentName</td>
+                <td>@s.Email</td>
+                <td>@s.PhoneNumber</td>
+                <td>@s.Department?.DepartmentName</td>
+                <td>@s.Course?.CourseName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@s.StudentId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@s.StudentId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
